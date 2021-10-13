@@ -1,0 +1,26 @@
+#spring.datasource.url: jdbc:h2:file:./camunda-h2-database
+
+servlet.context-path: /camunda
+
+camunda.bpm.admin-user:
+  id: demo
+  password: demo
+
+camunda.bpm.client:
+  base-url: http://localhost:8080/engine-rest # the URL pointing to the Camunda Platform Runtime REST API
+  lock-duration: 10000 # defines how many milliseconds the External Tasks are locked until they can be fetched again
+  subscriptions:
+    logProvider: # topic name of the External Service Task
+      variable-names: [ ] # our business logic doesn't require any variables, so don't fetch them
+      process-definition-key: dynamic-questions # only filter for External Tasks with this process definition key
+logging.level.org.camunda.bpm.client: DEBUG # increase the log level of the application
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+  username: sa
+  password: password

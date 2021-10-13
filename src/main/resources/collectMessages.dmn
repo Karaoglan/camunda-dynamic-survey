@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_00zm93r" name="Technik-DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="sub1.decision" name="Sub-1">
+    <decisionTable id="DecisionTable_17hctba" hitPolicy="COLLECT">
+      <input id="InputClause_15e454v" label="" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0i4af4j" typeRef="boolean">
+          <text>sub_1_1</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0u2l0bu" label="" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0popf5j" typeRef="boolean">
+          <text>sub_1_2</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1v0b050" label="result_1" name="result_1" typeRef="string" />
+      <rule id="row-368279542-3">
+        <inputEntry id="UnaryTests_1qzgkzw">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04djauy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gkm9ig">
+          <text>"sub1_1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-368279542-4">
+        <inputEntry id="UnaryTests_0gjrq70">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qzzguq">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bkdcr4">
+          <text>"sub1_2"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="technik.decision" name="Ergebnisliste">
+    <variable id="InformationItem_0592xcn" name="meldungsliste" />
+    <informationRequirement id="InformationRequirement_1e6i5kw">
+      <requiredDecision href="#sub1.decision" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0fki277">
+      <requiredDecision href="#sub2.decision" />
+    </informationRequirement>
+    <literalExpression id="LiteralExpression_1bq3igx" expressionLanguage="groovy">
+      <text>def liste = []
+
+liste.addAll(result_1)
+liste.addAll(result_2)
+
+return liste
+</text>
+    </literalExpression>
+  </decision>
+  <decision id="sub2.decision" name="Sub-2">
+    <decisionTable id="DecisionTable_0ezb9o1" hitPolicy="COLLECT">
+      <input id="InputClause_0mu0yb3" label="" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0gfee22" typeRef="boolean">
+          <text>sub_2_1</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0qbv2ee" label="" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_03oweaj" typeRef="boolean">
+          <text>sub_2_2</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0bk6ke6" label="result_2" name="result_2" typeRef="string" />
+      <rule id="row-368279542-5">
+        <inputEntry id="UnaryTests_1ie11sb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0boemgo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0v1r835">
+          <text>"sub2_1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="row-368279542-6">
+        <inputEntry id="UnaryTests_0zaia7f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qtq5f6">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aihnh6">
+          <text>"sub2_2"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_0ou0yla">
+      <dmndi:DMNShape id="DMNShape_174zsd1" dmnElementRef="sub1.decision">
+        <dc:Bounds height="80" width="180" x="74" y="388" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_17wcelc" dmnElementRef="technik.decision">
+        <dc:Bounds height="80" width="180" x="205" y="207" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1t3xbb1" dmnElementRef="InformationRequirement_1e6i5kw">
+        <di:waypoint x="187" y="388" />
+        <di:waypoint x="244" y="287" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1e4agi4" dmnElementRef="InformationRequirement_0fki277">
+        <di:waypoint x="386" y="386" />
+        <di:waypoint x="318" y="287" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1pu8p9r" dmnElementRef="sub2.decision">
+        <dc:Bounds height="80" width="180" x="323" y="386" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
