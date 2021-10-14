@@ -15,13 +15,14 @@
       <bpmn:scriptTask id="Activity_03q8lo0" name="Determine next Q" scriptFormat="javascript">
         <bpmn:incoming>Flow_059nakz</bpmn:incoming>
         <bpmn:outgoing>Flow_1iuie1j</bpmn:outgoing>
-        <bpmn:script>execution.setVariable("lastElem", S(answers).elements().get(S(answers).elements().size() - 1));
+        <bpmn:script>print("answers determi nex dyna");
+
+execution.setVariable("lastElem", S(answers).elements().get(S(answers).elements().size() - 1));
 
 print(lastElem.prop("questionId"));
 execution.setVariable('questionIdParam', lastElem.prop("questionId"));
 execution.setVariable('answer', lastElem.prop("answer"));
 
-print("answers determi nex dyna");
 
 print(lastElem);
 print(answers);
@@ -177,8 +178,17 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
       <bpmndi:BPMNShape id="Activity_0d1ov6f_di" bpmnElement="Activity_1rsu6kc">
         <dc:Bounds x="540" y="340" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1y9b1ju_di" bpmnElement="Activity_0m7k4tc">
+        <dc:Bounds x="950" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1dp9gn2_di" bpmnElement="log_process">
         <dc:Bounds x="1040" y="430" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1xp44te_di" bpmnElement="Event_1xp44te">
+        <dc:Bounds x="1192" y="282" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10hz4ac_di" bpmnElement="Activity_1tnn30r">
+        <dc:Bounds x="740" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0f28qhb_di" bpmnElement="TextAnnotation_0f28qhb">
         <dc:Bounds x="630" y="100" width="100" height="40" />
@@ -188,15 +198,6 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1hy3uo3_di" bpmnElement="TextAnnotation_1hy3uo3">
         <dc:Bounds x="790" y="180" width="99.99156545209178" height="29.984817813765183" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1y9b1ju_di" bpmnElement="Activity_0m7k4tc">
-        <dc:Bounds x="950" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1xp44te_di" bpmnElement="Event_1xp44te">
-        <dc:Bounds x="1192" y="282" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_10hz4ac_di" bpmnElement="Activity_1tnn30r">
-        <dc:Bounds x="740" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1t3xhbl_di" bpmnElement="Association_1t3xhbl">
         <di:waypoint x="610" y="180" />

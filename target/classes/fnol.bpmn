@@ -51,21 +51,12 @@ print(answers);</bpmn:script>
         <bpmn:outgoing>Flow_0axdixr</bpmn:outgoing>
         <bpmn:script>print("burakselamX fnol");
 print(S(questions).elements());
+
+print("!!answers");
 print(answers);
 
-
-print("check");
-var x = S(answers).elements();
-if (x.size() &gt; 0 ) {
-  print(x.size() == 0 || x.get(x.size() - 1).prop("questionId") != lastQuestion.prop("questionId"));
-  print(x.size() == 0);
-  print(x.get(x.size() - 1).prop("questionId"));
-  print(lastQuestion.prop("questionId"));
-  print(x.get(x.size() - 1).prop("questionId") != lastQuestion.prop("questionId"));
-}
-
-
-//#{S(answers).elements().size() == 0 || //S(answers).elements().get(S(answers).elements().size() - //1).prop("questionId") != lastQuestion.prop("questionId")}</bpmn:script>
+print("!!questions");
+print(questions);</bpmn:script>
       </bpmn:scriptTask>
       <bpmn:inclusiveGateway id="Gateway_0v6ki05">
         <bpmn:incoming>Flow_0axdixr</bpmn:incoming>
@@ -98,14 +89,14 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
       <bpmn:sequenceFlow id="Flow_15hdyli" sourceRef="Gateway_1htr91n" targetRef="Gateway_0ik30t7" />
       <bpmn:sequenceFlow id="Flow_0axdixr" sourceRef="Activity_0ry9i6h" targetRef="Gateway_0v6ki05" />
       <bpmn:sequenceFlow id="Flow_0ie7ut2" sourceRef="Gateway_0v6ki05" targetRef="fnol-user-task">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{S(answers).elements().size() &lt; 2}</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{S(answers).elements().size() == 0 || S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId").toString() != lastQuestion.prop("questionId").toString()}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1eamhpf" sourceRef="Gateway_1es02k6" targetRef="Activity_0url32d">
         <bpmn:documentation>#{S(answers).elements().size() == 0 || S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId") == lastQuestion.prop("questionId")}
 
 
 #{submit == true}</bpmn:documentation>
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{S(answers).elements().size() == 2}</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{submit == true}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1ty8zdz" sourceRef="Activity_0url32d" targetRef="Gateway_1htr91n" />
       <bpmn:userTask id="Activity_0url32d" name="submit?">
@@ -115,15 +106,16 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
       <bpmn:sequenceFlow id="Flow_1i26cdb" sourceRef="Gateway_0v6ki05" targetRef="Activity_1xkt5nu" />
       <bpmn:exclusiveGateway id="Gateway_1es02k6" default="Flow_0co2zlq">
         <bpmn:incoming>Flow_047y7jc</bpmn:incoming>
-        <bpmn:outgoing>Flow_0co2zlq</bpmn:outgoing>
         <bpmn:outgoing>Flow_1eamhpf</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0co2zlq</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:sequenceFlow id="Flow_047y7jc" sourceRef="Activity_1xkt5nu" targetRef="Gateway_1es02k6" />
-      <bpmn:sequenceFlow id="Flow_0co2zlq" sourceRef="Gateway_1es02k6" targetRef="Activity_0dyqwvj" />
       <bpmn:scriptTask id="Activity_1xkt5nu" scriptFormat="javascript">
         <bpmn:incoming>Flow_1i26cdb</bpmn:incoming>
         <bpmn:outgoing>Flow_047y7jc</bpmn:outgoing>
-        <bpmn:script>if (S(answers).elements().size() &gt; 0 &amp;&amp; S(answers).elements().get(0).prop("questionId") == 'secondQ') {
+        <bpmn:script>print("check sub");
+
+if (S(answers).elements().size() &gt; 0 &amp;&amp; S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId").toString() == lastQuestion.prop("questionId").toString()) {
   execution.setVariable("submit", true);
 } else {
   execution.setVariable("submit", false);
@@ -134,15 +126,17 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
         <bpmn:extensionElements>
           <camunda:connector>
             <camunda:inputOutput>
+              <camunda:inputParameter name="payload">{"questions": ${questions}, "answers": ${answers}}</camunda:inputParameter>
               <camunda:inputParameter name="headers">
                 <camunda:map>
                   <camunda:entry key="Accept">application/json</camunda:entry>
+                  <camunda:entry key="Content-Type">application/json</camunda:entry>
                 </camunda:map>
               </camunda:inputParameter>
-              <camunda:inputParameter name="method">GET</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:8080/api/demo</camunda:inputParameter>
+              <camunda:inputParameter name="method">POST</camunda:inputParameter>
+              <camunda:inputParameter name="url">http://localhost:8766/return-process/api/question-answers</camunda:inputParameter>
               <camunda:outputParameter name="result">
-                <camunda:script scriptFormat="JavaScript">var statusCode = connector.getVariable("statusCode");
+                <camunda:script scriptFormat="javascript">var statusCode = connector.getVariable("statusCode");
 if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
   print("works");
 }</camunda:script>
@@ -160,6 +154,7 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
         <bpmn:outgoing>Flow_1ffi1ws</bpmn:outgoing>
         <bpmn:script>print(result);</bpmn:script>
       </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_0co2zlq" sourceRef="Gateway_1es02k6" targetRef="Activity_0dyqwvj" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_1cle1ri" sourceRef="StartEvent_1" targetRef="Activity_08iaf5y" />
     <bpmn:endEvent id="Event_1jycotb">
@@ -170,12 +165,8 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fnol-process-1">
       <bpmndi:BPMNEdge id="Flow_1p8tj9g_di" bpmnElement="Flow_1p8tj9g">
-        <di:waypoint x="1520" y="100" />
-        <di:waypoint x="1520" y="80" />
-        <di:waypoint x="1540" y="80" />
-        <di:waypoint x="1540" y="138" />
-        <di:waypoint x="1520" y="138" />
-        <di:waypoint x="1520" y="292" />
+        <di:waypoint x="1560" y="300" />
+        <di:waypoint x="1692" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1cle1ri_di" bpmnElement="Flow_1cle1ri">
         <di:waypoint x="188" y="300" />
@@ -185,7 +176,7 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
         <dc:Bounds x="152" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1jycotb_di" bpmnElement="Event_1jycotb">
-        <dc:Bounds x="1502" y="292" width="36" height="36" />
+        <dc:Bounds x="1692" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08iaf5y_di" bpmnElement="Activity_08iaf5y" isExpanded="true">
         <dc:Bounds x="240" y="100" width="1320" height="420" />
@@ -219,7 +210,7 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1i26cdb_di" bpmnElement="Flow_1i26cdb">
         <di:waypoint x="725" y="300" />
-        <di:waypoint x="750" y="300" />
+        <di:waypoint x="730" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_18jyh0b_di" bpmnElement="Flow_18jyh0b">
         <di:waypoint x="1048" y="300" />
@@ -249,7 +240,7 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
         <di:waypoint x="1110" y="325" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_047y7jc_di" bpmnElement="Flow_047y7jc">
-        <di:waypoint x="850" y="300" />
+        <di:waypoint x="830" y="300" />
         <di:waypoint x="865" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0co2zlq_di" bpmnElement="Flow_0co2zlq">
@@ -294,9 +285,6 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
       <bpmndi:BPMNShape id="Activity_0dyqwvj_di" bpmnElement="Activity_0dyqwvj">
         <dc:Bounds x="948" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_054smtc_di" bpmnElement="Activity_1xkt5nu">
-        <dc:Bounds x="750" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_13c3t71_di" bpmnElement="fnol-user-task">
         <dc:Bounds x="948" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -308,6 +296,9 @@ if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1l708e2_di" bpmnElement="Activity_0emn142">
         <dc:Bounds x="1370" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_054smtc_di" bpmnElement="Activity_1xkt5nu">
+        <dc:Bounds x="730" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -16,53 +16,70 @@
       <output id="OutputClause_1k9iko5" label="optionsId" name="optionsId" typeRef="string" />
       <rule id="DecisionRule_0tsvqvf">
         <inputEntry id="UnaryTests_1aad1a3">
-          <text>"firstQ"</text>
+          <text>"parcelState"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0nrewef">
-          <text>"firstQ"</text>
+          <text>"parcelState"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0iirs70">
           <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qsz8mt">
-          <text>"First Question - example?"</text>
+          <text>"Parcel State?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1li9hbg" expressionLanguage="feel">
-          <text>"firstQ_options"</text>
+          <text>"parcelState_options"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_04x6ovt">
         <inputEntry id="UnaryTests_1lhv8xq">
-          <text>"secondQ"</text>
+          <text>"missingContent"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0revuzf">
-          <text>"secondQ"</text>
+          <text>"missingContent"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_08l8256">
           <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1v76oi5">
-          <text>"Second Question example?"</text>
+          <text>"Is something missing in the content?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0anr7jb">
-          <text>"secondQ_options"</text>
+          <text>"missingContent_options"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0t12vp8">
         <inputEntry id="UnaryTests_1btwy9t">
-          <text>"thirdQ"</text>
+          <text>"itemState"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0qw3wml">
-          <text>"thirdQ"</text>
+          <text>"itemState"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1a0p8br">
-          <text>"label"</text>
+          <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hscgcq">
-          <text>"Third Question - example?"</text>
+          <text>"Item State?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1kiib92">
-          <text>"thirdQ_options"</text>
+          <text>"itemState_options"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xzowj2">
+        <inputEntry id="UnaryTests_0va51cw">
+          <text>"lastQ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_003cdzd">
+          <text>"lastQ"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oxd3iu">
+          <text>"radio"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rdzlfg">
+          <text>"Last q please answer?"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01hbheq">
+          <text>"lastQ_options"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0yglgdd">
@@ -111,61 +128,72 @@
           <text>""</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0c6eb0r">
-          <text>"firstQ"</text>
+          <text>"parcelState"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1ftgke6">
         <inputEntry id="UnaryTests_1hj3my7">
-          <text>"firstQ"</text>
+          <text>"parcelState"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ud03os">
-          <text>"yes"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_146vf8j">
-          <text>"thirdQ"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_16hnmo1">
-        <inputEntry id="UnaryTests_1ovmj5h">
-          <text>"firstQ"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1epnmba">
-          <text>"no"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0w5lz0z">
-          <text>"secondQ"</text>
+          <text>"missingContent"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1ro959f">
         <inputEntry id="UnaryTests_0b0okh1">
-          <text>"secondQ"</text>
+          <text>"missingContent"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1t67m8d">
-          <text>"yes"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xcr15d" expressionLanguage="feel">
-          <text>"empty"</text>
+          <text>"itemState"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1bqfcfn">
-        <inputEntry id="UnaryTests_19c98x7">
-          <text>"secondQ"</text>
+      <rule id="DecisionRule_1bahgzm">
+        <inputEntry id="UnaryTests_03zaa4u">
+          <text>"itemState"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0phzi33">
-          <text>"no"</text>
+        <inputEntry id="UnaryTests_04v0ave">
+          <text>"usable"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_130ed2l">
-          <text>"thirdQ"</text>
+        <outputEntry id="LiteralExpression_1l4c9e4">
+          <text>"empty"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_01r8wlq">
         <inputEntry id="UnaryTests_1sk7sxb">
-          <text>"thirdQ"</text>
+          <text>"itemState"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1k9ewdo">
-          <text></text>
+          <text>"usableMinor"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1h5x9l6" expressionLanguage="feel">
+          <text>"lastQ"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kryzr3">
+        <inputEntry id="UnaryTests_0b26mlq">
+          <text>"itemState"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ifou3e">
+          <text>"unusable"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05huhxb">
+          <text>"empty"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1asdqxj">
+        <inputEntry id="UnaryTests_1ng8gif">
+          <text>"lastQ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eblr0t">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08t5g9d">
           <text>"empty"</text>
         </outputEntry>
       </rule>
@@ -181,40 +209,54 @@
           <text>optionsId</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_0crq3xb" label="label" name="label" typeRef="string" biodi:width="192" />
+      <output id="OutputClause_0crq3xb" label="label" name="label" typeRef="string" biodi:width="471" />
       <output id="OutputClause_0f89dvs" label="value" name="value" typeRef="string" />
-      <output id="OutputClause_1qz942l" label="id" name="id" typeRef="string" />
+      <output id="OutputClause_1qz942l" label="id" name="id" typeRef="string" biodi:width="341" />
       <rule id="DecisionRule_1uy5n1r">
         <inputEntry id="UnaryTests_1k01n7v">
-          <text>"firstQ_options"</text>
+          <text>"parcelState_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_03qgnl1">
-          <text>"Yes"</text>
+          <text>"flawless no dents no new tape, no holes, no writing on it"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02q8s79">
-          <text>"yes"</text>
+          <text>"flawless"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1srbu5k" expressionLanguage="feel">
-          <text>"firstQ_options_yes"</text>
+          <text>"parcelState_options_flawless"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0nej8wd">
         <inputEntry id="UnaryTests_0jk9oye">
-          <text>"firstQ_options"</text>
+          <text>"parcelState_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rolki3">
-          <text>"No"</text>
+          <text>"minor dents or minor writings or no new tape"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1d30r9n">
-          <text>"no"</text>
+          <text>"minor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0oxzeu6" expressionLanguage="feel">
-          <text>"firstQ_options_no"</text>
+          <text>"parcelState_options_minor"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qcsgqp">
+        <inputEntry id="UnaryTests_0e5l0ou">
+          <text>"parcelState_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u7bqxr">
+          <text>"dents, holes, or water damage new tape"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xik3to">
+          <text>"dents"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wd8bbt">
+          <text>"parcelState_options_dents"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_18bh6qk">
         <inputEntry id="UnaryTests_0jgu18l">
-          <text>"secondQ_options"</text>
+          <text>"missingContent_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0n64bq5">
           <text>"Yes"</text>
@@ -223,12 +265,12 @@
           <text>"yes"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1ecgsgl">
-          <text>"secondQ_options_yes"</text>
+          <text>"missingContent_options_yes"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_02kqf3h">
         <inputEntry id="UnaryTests_1407pyl">
-          <text>"secondQ_options"</text>
+          <text>"missingContent_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0j477be">
           <text>"No"</text>
@@ -237,21 +279,77 @@
           <text>"no"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0udon35">
-          <text>"secondQ_options_no"</text>
+          <text>"missingContent_options_no"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0rk91rg">
         <inputEntry id="UnaryTests_0l9plxn">
-          <text>"thirdQ_options"</text>
+          <text>"itemState_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1l2dv8f">
-          <text>"OK"</text>
+          <text>"usable / does function no malfunction, appearance kind of new"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1xo1yi8">
-          <text>"ok"</text>
+          <text>"usable"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0o0dpaa">
-          <text>"thirdQ_options_ok"</text>
+          <text>"itemState_options_usable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vwvyqq">
+        <inputEntry id="UnaryTests_1mtedkg">
+          <text>"itemState_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mrw8rw">
+          <text>"usable / does function no malfunction or dirty / minor dents but sellable"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ouy0ry">
+          <text>"usableMinor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yatbwv">
+          <text>"itemState_options_usableMinor"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_153sovz">
+        <inputEntry id="UnaryTests_1yva6wo">
+          <text>"itemState_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ku41d4">
+          <text>"unusable / does not function, dirty, dents, damage"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_064t6pi">
+          <text>"unusable"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00eojhr">
+          <text>"itemState_options_unusable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rjklol">
+        <inputEntry id="UnaryTests_142f8sz">
+          <text>"lastQ_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nkdw21">
+          <text>"Yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f9we37">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0awfky5">
+          <text>"lastQ_options_yes"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_127h1ry">
+        <inputEntry id="UnaryTests_0850mpq">
+          <text>"lastQ_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03ryplm">
+          <text>"No"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ib6b84">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hxbi6y">
+          <text>"lastQ_options_no"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1otob31">
