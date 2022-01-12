@@ -1,0 +1,9 @@
+<button (click)="startProcess()">START PROCESS</button>
+
+<div *ngIf="formData$ | async as data">
+  <app-json-form
+    [jsonFormData]="data"
+    [processInstanceId]="processInstanceId"
+    (getQuestionsEvent)="getQuestions($event)"
+  ></app-json-form>
+</div>

@@ -1,0 +1,46 @@
+<form [formGroup]="myForm" (ngSubmit)="submit()">
+  <div
+    *ngFor="let control of jsonFormData; let i = index"
+    [ngSwitch]="control.fieldType"
+  >
+    <mat-form-field *ngSwitchCase="'text'" appearance="fill">
+      <mat-label>{{ control.label }}</mat-label>
+      <input
+        *ngIf="control.fieldType === 'text'"
+        [type]="control.fieldType"
+        [formControlName]="control.questionId"
+        matInput
+      />
+    </mat-form-field>
+    <label *ngSwitchCase="'radio'" class="example-radio-label">{{
+      control.label
+    }}</label>
+    <mat-radio-group
+      *ngSwitchCase="'radio'"
+      [formControlName]="control.questionId"
+      class="example-radio-group"
+      (change)="changeRadio(i)"
+    >
+      <mat-radio-button
+        class="example-radio-button"
+        *ngFor="let opt of control.options"
+        [value]="opt.value"
+      >
+        {{ opt.label }}
+      </mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field *ngSwitchCase="'label'" appearance="fill">
+      <mat-label>{{ control.label }}</mat-label>
+      <input
+        *ngIf="control.fieldType === 'label'"
+        [type]="'text'"
+        [formControlName]="control.questionId"
+        matInput
+      />
+    </mat-form-field>
+  </div>
+
+  <button type="submit" [disabled]="!jsonFormData || isFormInvalid()">
+    Submit
+  </button>
+</form>
