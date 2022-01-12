@@ -2,6 +2,7 @@
 .classpath
 .project
 .settings/
+*target
  
 # Intellij
 .idea/
@@ -14,4 +15,8 @@
 # Maven
 log/
 target/
+
+*.txt
+*.dmp
+*.trc
 

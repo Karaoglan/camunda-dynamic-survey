@@ -15,25 +15,17 @@
       <bpmn:scriptTask id="Activity_03q8lo0" name="Determine next Q" scriptFormat="javascript">
         <bpmn:incoming>Flow_059nakz</bpmn:incoming>
         <bpmn:outgoing>Flow_1iuie1j</bpmn:outgoing>
-        <bpmn:script>print("answers determi nex dyna");
-
+        <bpmn:script>
 execution.setVariable("lastElem", S(answers).elements().get(S(answers).elements().size() - 1));
 
 print(lastElem.prop("questionId"));
 execution.setVariable('questionIdParam', lastElem.prop("questionId"));
-execution.setVariable('answer', lastElem.prop("answer"));
-
-
-print(lastElem);
-print(answers);
-print("questions");
-print(questions);
-</bpmn:script>
+execution.setVariable('answer', lastElem.prop("answer"));</bpmn:script>
       </bpmn:scriptTask>
       <bpmn:scriptTask id="Activity_1rsu6kc" name="Set Default next Question Input" scriptFormat="javascript">
         <bpmn:incoming>Flow_0vylyr9</bpmn:incoming>
         <bpmn:outgoing>Flow_1ao966f</bpmn:outgoing>
-        <bpmn:script>print('default');
+        <bpmn:script>print('-----Dynamic-Set-default');
 execution.setVariable('questionIdParam', '');
 execution.setVariable('answer', '');</bpmn:script>
       </bpmn:scriptTask>
@@ -43,8 +35,8 @@ execution.setVariable('answer', '');</bpmn:script>
       <bpmn:sequenceFlow id="Flow_0vylyr9" sourceRef="Gateway_08xt7rx" targetRef="Activity_1rsu6kc" />
       <bpmn:scriptTask id="Activity_0m7k4tc" name="Prepare questions payload" scriptFormat="javascript">
         <bpmn:incoming>Flow_0mbfjgn</bpmn:incoming>
-        <bpmn:outgoing>Flow_062odkk</bpmn:outgoing>
-        <bpmn:script>print("nextQ in preopa dynba");
+        <bpmn:outgoing>Flow_13ke4gl</bpmn:outgoing>
+        <bpmn:script>print("-----dyna-nextQ in preopa dynba");
 
 print(collected);
 print(collected.get(0).get("collected"));
@@ -54,13 +46,14 @@ if (collected.get(0).get("collected").get("questionId")) {
   var added = S(questions).elements();
 
   var optionsArray = [];
-  var optionsJson = collected.get(0).get("collected").get("options");
+  var optionsJson = 
+    collected.get(0).get("collected").get("options");
 
   for (var i=0; i &lt; optionsJson.get("label").length; i ++) {
     optionsArray.push(
       {
         'label': optionsJson.get("label")[i],
-        'value': optionsJson.get("value")[i]
+        'value': optionsJson.get("value")[i],
       }
     );
   }
@@ -70,7 +63,8 @@ if (collected.get(0).get("collected").get("questionId")) {
     'fieldType': collected.get(0).get("collected").get("fieldType"),
     'label': collected.get(0).get("collected").get("label"),
     'options': optionsArray,
-    'questionId': collected.get(0).get("collected").get("questionId")
+    'questionId': 
+      collected.get(0).get("collected").get("questionId")
   }
 
   added.add(S(JSON.stringify(xvar)));
@@ -81,15 +75,14 @@ if (collected.get(0).get("collected").get("questionId")) {
   execution.setVariable("questions", questions.toString());
 }
 
-execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).elements().size() - 1));
+execution.setVariable("lastQuestion", 
+  S(questions).elements().get(S(questions).elements().size() - 1));
 
 </bpmn:script>
       </bpmn:scriptTask>
-      <bpmn:serviceTask id="log_process" name="logPro" camunda:type="external" camunda:topic="logProvider" />
       <bpmn:endEvent id="Event_1xp44te">
-        <bpmn:incoming>Flow_062odkk</bpmn:incoming>
+        <bpmn:incoming>Flow_13ke4gl</bpmn:incoming>
       </bpmn:endEvent>
-      <bpmn:sequenceFlow id="Flow_062odkk" sourceRef="Activity_0m7k4tc" targetRef="Event_1xp44te" />
       <bpmn:businessRuleTask id="Activity_1tnn30r" name="Next Question Table" camunda:resultVariable="collected" camunda:decisionRef="decision-script">
         <bpmn:incoming>Flow_1ao966f</bpmn:incoming>
         <bpmn:incoming>Flow_1iuie1j</bpmn:incoming>
@@ -99,15 +92,18 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
       <bpmn:sequenceFlow id="Flow_1iuie1j" sourceRef="Activity_03q8lo0" targetRef="Activity_1tnn30r" />
       <bpmn:sequenceFlow id="Flow_0wvo3s0" sourceRef="Event_1hoj7wb" targetRef="Gateway_08xt7rx" />
       <bpmn:sequenceFlow id="Flow_0mbfjgn" sourceRef="Activity_1tnn30r" targetRef="Activity_0m7k4tc" />
+      <bpmn:sequenceFlow id="Flow_13ke4gl" sourceRef="Activity_0m7k4tc" targetRef="Event_1xp44te" />
       <bpmn:association id="Association_1t3xhbl" sourceRef="Activity_03q8lo0" targetRef="TextAnnotation_0f28qhb" />
       <bpmn:textAnnotation id="TextAnnotation_0f28qhb">
-        <bpmn:text>parse fe request</bpmn:text>
+        <bpmn:text>parse frıontend request</bpmn:text>
       </bpmn:textAnnotation>
       <bpmn:textAnnotation id="TextAnnotation_0pg08q4">
-        <bpmn:text>parse fe request</bpmn:text>
+        <bpmn:text>parse frontend request</bpmn:text>
       </bpmn:textAnnotation>
       <bpmn:association id="Association_04lb1y2" sourceRef="Activity_1rsu6kc" targetRef="TextAnnotation_0pg08q4" />
-      <bpmn:textAnnotation id="TextAnnotation_1hy3uo3" />
+      <bpmn:textAnnotation id="TextAnnotation_1hy3uo3">
+        <bpmn:text>Determine next quıestion</bpmn:text>
+      </bpmn:textAnnotation>
       <bpmn:association id="Association_1bt4izw" sourceRef="Activity_1tnn30r" targetRef="TextAnnotation_1hy3uo3" />
     </bpmn:subProcess>
     <bpmn:startEvent id="Event_04p66lh">
@@ -122,19 +118,26 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="dynamic-questions">
       <bpmndi:BPMNEdge id="Flow_05bepsr_di" bpmnElement="Flow_05bepsr">
-        <di:waypoint x="1600" y="285" />
-        <di:waypoint x="1692" y="285" />
+        <di:waypoint x="1190" y="300" />
+        <di:waypoint x="1262" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ao88ua_di" bpmnElement="Flow_1ao88ua">
-        <di:waypoint x="188" y="300" />
-        <di:waypoint x="260" y="300" />
+        <di:waypoint x="188" y="315" />
+        <di:waypoint x="260" y="315" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_0jisqrs_di" bpmnElement="Activity_0jisqrs" isExpanded="true">
-        <dc:Bounds x="260" y="80" width="1340" height="470" />
+      <bpmndi:BPMNShape id="Event_04p66lh_di" bpmnElement="Event_04p66lh">
+        <dc:Bounds x="152" y="297" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jisqrs_di" bpmnElement="Activity_0jisqrs" isExpanded="true">
+        <dc:Bounds x="260" y="80" width="930" height="470" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_13ke4gl_di" bpmnElement="Flow_13ke4gl">
+        <di:waypoint x="1053" y="300" />
+        <di:waypoint x="1122" y="300" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0mbfjgn_di" bpmnElement="Flow_0mbfjgn">
         <di:waypoint x="840" y="300" />
-        <di:waypoint x="950" y="300" />
+        <di:waypoint x="953" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0wvo3s0_di" bpmnElement="Flow_0wvo3s0">
         <di:waypoint x="336" y="310" />
@@ -151,10 +154,6 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
         <di:waypoint x="665" y="380" />
         <di:waypoint x="665" y="300" />
         <di:waypoint x="740" y="300" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_062odkk_di" bpmnElement="Flow_062odkk">
-        <di:waypoint x="1050" y="300" />
-        <di:waypoint x="1192" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vylyr9_di" bpmnElement="Flow_0vylyr9">
         <di:waypoint x="440" y="335" />
@@ -179,30 +178,27 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
         <dc:Bounds x="540" y="340" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1y9b1ju_di" bpmnElement="Activity_0m7k4tc">
-        <dc:Bounds x="950" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1dp9gn2_di" bpmnElement="log_process">
-        <dc:Bounds x="1040" y="430" width="100" height="80" />
+        <dc:Bounds x="953" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1xp44te_di" bpmnElement="Event_1xp44te">
-        <dc:Bounds x="1192" y="282" width="36" height="36" />
+        <dc:Bounds x="1122" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_10hz4ac_di" bpmnElement="Activity_1tnn30r">
         <dc:Bounds x="740" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0f28qhb_di" bpmnElement="TextAnnotation_0f28qhb">
-        <dc:Bounds x="630" y="100" width="100" height="40" />
+        <dc:Bounds x="630" y="100" width="99.98292349726775" height="38.25136612021858" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0pg08q4_di" bpmnElement="TextAnnotation_0pg08q4">
-        <dc:Bounds x="550" y="440" width="110" height="40" />
+        <dc:Bounds x="550" y="440" width="109.9726775956284" height="38.25136612021858" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1hy3uo3_di" bpmnElement="TextAnnotation_1hy3uo3">
-        <dc:Bounds x="790" y="180" width="99.99156545209178" height="29.984817813765183" />
+        <dc:Bounds x="790" y="180" width="99.98292349726775" height="38.25136612021857" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_1t3xhbl_di" bpmnElement="Association_1t3xhbl">
         <di:waypoint x="610" y="180" />
         <di:waypoint x="640" y="120" />
-        <di:waypoint x="630" y="140" />
+        <di:waypoint x="631" y="138" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_04lb1y2_di" bpmnElement="Association_04lb1y2">
         <di:waypoint x="601" y="420" />
@@ -210,13 +206,10 @@ execution.setVariable("lastQuestion", S(questions).elements().get(S(questions).e
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1bt4izw_di" bpmnElement="Association_1bt4izw">
         <di:waypoint x="809" y="260" />
-        <di:waypoint x="833" y="210" />
+        <di:waypoint x="829" y="218" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Event_04p66lh_di" bpmnElement="Event_04p66lh">
-        <dc:Bounds x="152" y="282" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0kj4710_di" bpmnElement="Event_0kj4710">
-        <dc:Bounds x="1692" y="267" width="36" height="36" />
+        <dc:Bounds x="1262" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

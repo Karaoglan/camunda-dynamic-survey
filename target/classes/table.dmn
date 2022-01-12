@@ -25,7 +25,7 @@
           <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qsz8mt">
-          <text>"First Question - example?"</text>
+          <text>"Question for firstQ?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1li9hbg" expressionLanguage="feel">
           <text>"firstQ_options"</text>
@@ -42,7 +42,7 @@
           <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1v76oi5">
-          <text>"Second Question example?"</text>
+          <text>"Question for secondQ?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0anr7jb">
           <text>"secondQ_options"</text>
@@ -56,10 +56,10 @@
           <text>"thirdQ"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1a0p8br">
-          <text>"label"</text>
+          <text>"radio"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hscgcq">
-          <text>"Third Question - example?"</text>
+          <text>"Question for thirdQ?"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1kiib92">
           <text>"thirdQ_options"</text>
@@ -119,20 +119,9 @@
           <text>"firstQ"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ud03os">
-          <text>"yes"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_146vf8j">
-          <text>"thirdQ"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_16hnmo1">
-        <inputEntry id="UnaryTests_1ovmj5h">
-          <text>"firstQ"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1epnmba">
-          <text>"no"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0w5lz0z">
           <text>"secondQ"</text>
         </outputEntry>
       </rule>
@@ -141,31 +130,20 @@
           <text>"secondQ"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1t67m8d">
-          <text>"yes"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xcr15d" expressionLanguage="feel">
-          <text>"empty"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1bqfcfn">
-        <inputEntry id="UnaryTests_19c98x7">
-          <text>"secondQ"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0phzi33">
-          <text>"no"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_130ed2l">
           <text>"thirdQ"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_01r8wlq">
-        <inputEntry id="UnaryTests_1sk7sxb">
+      <rule id="DecisionRule_1bahgzm">
+        <inputEntry id="UnaryTests_03zaa4u">
           <text>"thirdQ"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1k9ewdo">
-          <text></text>
+        <inputEntry id="UnaryTests_04v0ave">
+          <text>-</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1h5x9l6" expressionLanguage="feel">
+        <outputEntry id="LiteralExpression_1l4c9e4">
           <text>"empty"</text>
         </outputEntry>
       </rule>
@@ -181,21 +159,21 @@
           <text>optionsId</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_0crq3xb" label="label" name="label" typeRef="string" biodi:width="192" />
+      <output id="OutputClause_0crq3xb" label="label" name="label" typeRef="string" biodi:width="471" />
       <output id="OutputClause_0f89dvs" label="value" name="value" typeRef="string" />
-      <output id="OutputClause_1qz942l" label="id" name="id" typeRef="string" />
+      <output id="OutputClause_1qz942l" label="id" name="id" typeRef="string" biodi:width="341" />
       <rule id="DecisionRule_1uy5n1r">
         <inputEntry id="UnaryTests_1k01n7v">
           <text>"firstQ_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_03qgnl1">
-          <text>"Yes"</text>
+          <text>"1.Option firstQ"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02q8s79">
-          <text>"yes"</text>
+          <text>"1"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1srbu5k" expressionLanguage="feel">
-          <text>"firstQ_options_yes"</text>
+          <text>"firstQ_options_1"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0nej8wd">
@@ -203,13 +181,27 @@
           <text>"firstQ_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rolki3">
-          <text>"No"</text>
+          <text>"2.Option firstQ"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1d30r9n">
-          <text>"no"</text>
+          <text>"2"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0oxzeu6" expressionLanguage="feel">
-          <text>"firstQ_options_no"</text>
+          <text>"firstQ_options_2"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qcsgqp">
+        <inputEntry id="UnaryTests_0e5l0ou">
+          <text>"firstQ_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u7bqxr">
+          <text>"3.Option firstQ"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xik3to">
+          <text>"3"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wd8bbt">
+          <text>"firstQ_options_3"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_18bh6qk">
@@ -245,13 +237,41 @@
           <text>"thirdQ_options"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1l2dv8f">
-          <text>"OK"</text>
+          <text>"1.Option thirdQ"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1xo1yi8">
-          <text>"ok"</text>
+          <text>"1"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0o0dpaa">
-          <text>"thirdQ_options_ok"</text>
+          <text>"thirdQ_options_1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vwvyqq">
+        <inputEntry id="UnaryTests_1mtedkg">
+          <text>"thirdQ_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mrw8rw">
+          <text>"2.Option thirdQ"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ouy0ry">
+          <text>"2"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yatbwv">
+          <text>"thirdQ_options_2"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_153sovz">
+        <inputEntry id="UnaryTests_1yva6wo">
+          <text>"thirdQ_options"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ku41d4">
+          <text>"3.Option thirdQ"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_064t6pi">
+          <text>"3"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00eojhr">
+          <text>"thirdQ_options_3"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1otob31">
@@ -278,11 +298,8 @@
       <requiredDecision href="#options" />
     </informationRequirement>
     <literalExpression id="LiteralExpression_0uc7q9o" expressionLanguage="groovy">
-      <text>println("intabelscript")
-println(label)
-println(value)
+      <text>
 def optionList = [label: label, value: value]
-
 def collected = new LinkedHashMap()
 if (questionId != "empty") {
   collected.fieldType = fieldType

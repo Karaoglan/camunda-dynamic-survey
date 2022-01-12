@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hqmet9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
-  <bpmn:process id="fnol-process-1" isExecutable="true">
+  <bpmn:process id="fnol-process" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_1cle1ri</bpmn:outgoing>
     </bpmn:startEvent>
@@ -10,7 +10,7 @@
       <bpmn:startEvent id="Event_16ak2r9">
         <bpmn:outgoing>Flow_1r5bmhz</bpmn:outgoing>
       </bpmn:startEvent>
-      <bpmn:userTask id="fnol-user-task">
+      <bpmn:userTask id="fnol-service-user-task" name="Answer">
         <bpmn:incoming>Flow_0ie7ut2</bpmn:incoming>
         <bpmn:outgoing>Flow_08ukwzo</bpmn:outgoing>
       </bpmn:userTask>
@@ -20,54 +20,33 @@
         <bpmn:outgoing>Flow_0cuzwgi</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:endEvent id="Event_1q8mhpx">
-        <bpmn:incoming>Flow_1buzers</bpmn:incoming>
+        <bpmn:incoming>Flow_0uypg26</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_167mxrv" sourceRef="Gateway_0ik30t7" targetRef="Activity_10cztjh" />
-      <bpmn:sequenceFlow id="Flow_08ukwzo" sourceRef="fnol-user-task" targetRef="Gateway_1htr91n" />
+      <bpmn:sequenceFlow id="Flow_08ukwzo" sourceRef="fnol-service-user-task" targetRef="Gateway_1htr91n" />
       <bpmn:callActivity id="Activity_1e7o5n1" name="dynamic-questions" calledElement="dynamic-questions">
         <bpmn:extensionElements>
           <camunda:in variables="all" />
           <camunda:out variables="all" />
         </bpmn:extensionElements>
-        <bpmn:incoming>Flow_06pi6rc</bpmn:incoming>
         <bpmn:incoming>Flow_1r5bmhz</bpmn:incoming>
+        <bpmn:incoming>Flow_0cuzwgi</bpmn:incoming>
         <bpmn:outgoing>Flow_05izzpn</bpmn:outgoing>
       </bpmn:callActivity>
-      <bpmn:sequenceFlow id="Flow_05izzpn" sourceRef="Activity_1e7o5n1" targetRef="Activity_0ry9i6h" />
+      <bpmn:sequenceFlow id="Flow_05izzpn" sourceRef="Activity_1e7o5n1" targetRef="Gateway_0v6ki05" />
       <bpmn:sequenceFlow id="Flow_1r5bmhz" sourceRef="Event_16ak2r9" targetRef="Activity_1e7o5n1" />
-      <bpmn:sequenceFlow id="Flow_0cuzwgi" sourceRef="Gateway_0ik30t7" targetRef="Activity_19c43ck">
+      <bpmn:sequenceFlow id="Flow_0cuzwgi" sourceRef="Gateway_0ik30t7" targetRef="Activity_1e7o5n1">
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{end == false}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
-      <bpmn:scriptTask id="Activity_19c43ck" name="print Q/A fnol" scriptFormat="javascript">
-        <bpmn:incoming>Flow_0cuzwgi</bpmn:incoming>
-        <bpmn:outgoing>Flow_06pi6rc</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-print Q/A fnol");
-print(questions);
-print(answers);</bpmn:script>
-      </bpmn:scriptTask>
-      <bpmn:sequenceFlow id="Flow_06pi6rc" sourceRef="Activity_19c43ck" targetRef="Activity_1e7o5n1" />
-      <bpmn:scriptTask id="Activity_0ry9i6h" name="X" scriptFormat="javascript">
-        <bpmn:incoming>Flow_05izzpn</bpmn:incoming>
-        <bpmn:outgoing>Flow_0axdixr</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-X");
-print(S(questions).elements());
-
-print("!!answers");
-print(answers);
-
-print("!!questions");
-print(questions);</bpmn:script>
-      </bpmn:scriptTask>
       <bpmn:inclusiveGateway id="Gateway_0v6ki05">
-        <bpmn:incoming>Flow_0axdixr</bpmn:incoming>
+        <bpmn:incoming>Flow_05izzpn</bpmn:incoming>
         <bpmn:outgoing>Flow_0ie7ut2</bpmn:outgoing>
         <bpmn:outgoing>Flow_1i26cdb</bpmn:outgoing>
       </bpmn:inclusiveGateway>
       <bpmn:scriptTask id="Activity_0dyqwvj" name="end q?" scriptFormat="javascript">
         <bpmn:incoming>Flow_0co2zlq</bpmn:incoming>
         <bpmn:outgoing>Flow_18jyh0b</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-endq");
-
+        <bpmn:script>
 var ans = S(answers).elements();
 
 if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questionId")).valueOf() === new String(lastQuestion.prop("questionId")).valueOf()) {
@@ -77,7 +56,7 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
   execution.setVariable("end", false);
 }
 
-</bpmn:script>
+        </bpmn:script>
       </bpmn:scriptTask>
       <bpmn:inclusiveGateway id="Gateway_1htr91n">
         <bpmn:incoming>Flow_18jyh0b</bpmn:incoming>
@@ -87,15 +66,10 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
       </bpmn:inclusiveGateway>
       <bpmn:sequenceFlow id="Flow_18jyh0b" sourceRef="Activity_0dyqwvj" targetRef="Gateway_1htr91n" />
       <bpmn:sequenceFlow id="Flow_15hdyli" sourceRef="Gateway_1htr91n" targetRef="Gateway_0ik30t7" />
-      <bpmn:sequenceFlow id="Flow_0axdixr" sourceRef="Activity_0ry9i6h" targetRef="Gateway_0v6ki05" />
-      <bpmn:sequenceFlow id="Flow_0ie7ut2" sourceRef="Gateway_0v6ki05" targetRef="fnol-user-task">
+      <bpmn:sequenceFlow id="Flow_0ie7ut2" sourceRef="Gateway_0v6ki05" targetRef="fnol-service-user-task">
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{S(answers).elements().size() == 0 || S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId").toString() != lastQuestion.prop("questionId").toString()}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1eamhpf" sourceRef="Gateway_1es02k6" targetRef="Activity_0url32d">
-        <bpmn:documentation>#{S(answers).elements().size() == 0 || S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId") == lastQuestion.prop("questionId")}
-
-
-#{submit == true}</bpmn:documentation>
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{submit == true}</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1ty8zdz" sourceRef="Activity_0url32d" targetRef="Gateway_1htr91n" />
@@ -110,77 +84,33 @@ if (ans.size() &gt; 0 &amp;&amp; new String(ans.get(ans.size() - 1).prop("questi
         <bpmn:outgoing>Flow_0co2zlq</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:sequenceFlow id="Flow_047y7jc" sourceRef="Activity_1xkt5nu" targetRef="Gateway_1es02k6" />
-      <bpmn:scriptTask id="Activity_1xkt5nu" scriptFormat="javascript">
+      <bpmn:scriptTask id="Activity_1xkt5nu" name="Check Submit end" scriptFormat="javascript">
         <bpmn:incoming>Flow_1i26cdb</bpmn:incoming>
         <bpmn:outgoing>Flow_047y7jc</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-check sub");
-
-if (S(answers).elements().size() &gt; 0 &amp;&amp; S(answers).elements().get(S(answers).elements().size() - 1).prop("questionId").toString() == lastQuestion.prop("questionId").toString()) {
+        <bpmn:script>
+if (S(answers).elements().size() &gt; 0 &amp;&amp; 
+    S(answers).elements().get(S(answers).elements().size() - 
+      1).prop("questionId").toString() == 
+        lastQuestion.prop("questionId").toString()) {
   execution.setVariable("submit", true);
 } else {
   execution.setVariable("submit", false);
 }</bpmn:script>
       </bpmn:scriptTask>
-      <bpmn:serviceTask id="Activity_0j103ok" name="Http - return save">
-        <bpmn:extensionElements>
-          <camunda:connector>
-            <camunda:inputOutput>
-              <camunda:inputParameter name="payload">{"questions": ${questions}, "answers": ${answers}, "category": ${category}}</camunda:inputParameter>
-              <camunda:inputParameter name="headers">
-                <camunda:map>
-                  <camunda:entry key="Accept">application/json</camunda:entry>
-                  <camunda:entry key="Content-Type">application/json</camunda:entry>
-                </camunda:map>
-              </camunda:inputParameter>
-              <camunda:inputParameter name="method">POST</camunda:inputParameter>
-              <camunda:inputParameter name="url">http://localhost:8766/return-process/api/question-answers</camunda:inputParameter>
-              <camunda:outputParameter name="result">
-                <camunda:script scriptFormat="javascript">var statusCode = connector.getVariable("statusCode");
-if (statusCode &gt;= 200 &amp;&amp; statusCode &lt; 300) {
-  print("return service called success");
-}
-
-print(connector.getVariable("response"));
-</camunda:script>
-              </camunda:outputParameter>
-            </camunda:inputOutput>
-            <camunda:connectorId>http-connector</camunda:connectorId>
-          </camunda:connector>
-        </bpmn:extensionElements>
-        <bpmn:incoming>Flow_1d61wu3</bpmn:incoming>
-        <bpmn:outgoing>Flow_1buzers</bpmn:outgoing>
-      </bpmn:serviceTask>
-      <bpmn:scriptTask id="Activity_0emn142" name="last" scriptFormat="javascript">
-        <bpmn:incoming>Flow_0qk5hxj</bpmn:incoming>
-        <bpmn:outgoing>Flow_1d61wu3</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-last");
-print(category);</bpmn:script>
-      </bpmn:scriptTask>
       <bpmn:sequenceFlow id="Flow_0co2zlq" sourceRef="Gateway_1es02k6" targetRef="Activity_0dyqwvj" />
-      <bpmn:sequenceFlow id="Flow_0qk5hxj" sourceRef="Activity_0gqu9vx" targetRef="Activity_0emn142" />
-      <bpmn:businessRuleTask id="Activity_0gqu9vx" name="category-decision" camunda:resultVariable="category" camunda:decisionRef="category-decision" camunda:mapDecisionResult="singleResult">
-        <bpmn:incoming>Flow_0uypg26</bpmn:incoming>
-        <bpmn:outgoing>Flow_0qk5hxj</bpmn:outgoing>
-      </bpmn:businessRuleTask>
-      <bpmn:sequenceFlow id="Flow_0uypg26" sourceRef="Activity_10cztjh" targetRef="Activity_0gqu9vx" />
+      <bpmn:sequenceFlow id="Flow_0uypg26" sourceRef="Activity_10cztjh" targetRef="Event_1q8mhpx" />
       <bpmn:scriptTask id="Activity_10cztjh" name="prepare-category-answers" scriptFormat="javascript">
         <bpmn:incoming>Flow_167mxrv</bpmn:incoming>
         <bpmn:outgoing>Flow_0uypg26</bpmn:outgoing>
-        <bpmn:script>print("!!!fnol-prepareCategoAns");
-print("answers");
-print(answers);
-print("!");
-
+        <bpmn:script>
 for (var i = 0; i &lt; S(answers).elements().size(); i++) {
-var q = 'answer' + (i + 1);
-var answer = S(answers).elements().get(i).prop("questionId") + '_' + S(answers).elements().get(i).prop("answer");
-execution.setVariable(q, answer);
-}
-
-execution.setVariable(, answer);</bpmn:script>
+  var q = 'answer' + (i + 1);
+  var answer = S(answers).elements().get(i).prop("answer");
+  print(answer);
+  print(q);
+  execution.setVariable(q, answer);
+}</bpmn:script>
       </bpmn:scriptTask>
-      <bpmn:sequenceFlow id="Flow_1buzers" sourceRef="Activity_0j103ok" targetRef="Event_1q8mhpx" />
-      <bpmn:sequenceFlow id="Flow_1d61wu3" sourceRef="Activity_0emn142" targetRef="Activity_0j103ok" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_1cle1ri" sourceRef="StartEvent_1" targetRef="Activity_08iaf5y" />
     <bpmn:endEvent id="Event_1jycotb">
@@ -189,48 +119,36 @@ execution.setVariable(, answer);</bpmn:script>
     <bpmn:sequenceFlow id="Flow_1p8tj9g" sourceRef="Activity_08iaf5y" targetRef="Event_1jycotb" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fnol-process-1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="fnol-process">
       <bpmndi:BPMNEdge id="Flow_1p8tj9g_di" bpmnElement="Flow_1p8tj9g">
-        <di:waypoint x="1890" y="310" />
-        <di:waypoint x="1922" y="310" />
+        <di:waypoint x="1490" y="300" />
+        <di:waypoint x="1562" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1cle1ri_di" bpmnElement="Flow_1cle1ri">
-        <di:waypoint x="188" y="300" />
+        <di:waypoint x="198" y="300" />
         <di:waypoint x="240" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="152" y="282" width="36" height="36" />
+        <dc:Bounds x="162" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_08iaf5y_di" bpmnElement="Activity_08iaf5y" isExpanded="true">
-        <dc:Bounds x="240" y="100" width="1650" height="420" />
+        <dc:Bounds x="240" y="100" width="1250" height="420" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1d61wu3_di" bpmnElement="Flow_1d61wu3">
-        <di:waypoint x="1650" y="300" />
-        <di:waypoint x="1680" y="300" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1buzers_di" bpmnElement="Flow_1buzers">
-        <di:waypoint x="1780" y="300" />
-        <di:waypoint x="1832" y="300" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0uypg26_di" bpmnElement="Flow_0uypg26">
         <di:waypoint x="1360" y="300" />
-        <di:waypoint x="1410" y="300" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0qk5hxj_di" bpmnElement="Flow_0qk5hxj">
-        <di:waypoint x="1510" y="300" />
-        <di:waypoint x="1550" y="300" />
+        <di:waypoint x="1412" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0co2zlq_di" bpmnElement="Flow_0co2zlq">
-        <di:waypoint x="915" y="300" />
+        <di:waypoint x="885" y="300" />
         <di:waypoint x="948" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_047y7jc_di" bpmnElement="Flow_047y7jc">
-        <di:waypoint x="830" y="300" />
-        <di:waypoint x="865" y="300" />
+        <di:waypoint x="770" y="300" />
+        <di:waypoint x="835" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1i26cdb_di" bpmnElement="Flow_1i26cdb">
-        <di:waypoint x="725" y="300" />
-        <di:waypoint x="730" y="300" />
+        <di:waypoint x="635" y="300" />
+        <di:waypoint x="670" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ty8zdz_di" bpmnElement="Flow_1ty8zdz">
         <di:waypoint x="1048" y="390" />
@@ -238,18 +156,14 @@ execution.setVariable(, answer);</bpmn:script>
         <di:waypoint x="1110" y="325" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1eamhpf_di" bpmnElement="Flow_1eamhpf">
-        <di:waypoint x="890" y="325" />
-        <di:waypoint x="890" y="390" />
+        <di:waypoint x="860" y="325" />
+        <di:waypoint x="860" y="390" />
         <di:waypoint x="948" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ie7ut2_di" bpmnElement="Flow_0ie7ut2">
-        <di:waypoint x="700" y="275" />
-        <di:waypoint x="700" y="200" />
+        <di:waypoint x="610" y="275" />
+        <di:waypoint x="610" y="200" />
         <di:waypoint x="948" y="200" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0axdixr_di" bpmnElement="Flow_0axdixr">
-        <di:waypoint x="660" y="300" />
-        <di:waypoint x="675" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_15hdyli_di" bpmnElement="Flow_15hdyli">
         <di:waypoint x="1135" y="300" />
@@ -259,15 +173,11 @@ execution.setVariable(, answer);</bpmn:script>
         <di:waypoint x="1048" y="300" />
         <di:waypoint x="1085" y="300" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06pi6rc_di" bpmnElement="Flow_06pi6rc">
-        <di:waypoint x="800" y="460" />
-        <di:waypoint x="460" y="460" />
-        <di:waypoint x="460" y="340" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0cuzwgi_di" bpmnElement="Flow_0cuzwgi">
         <di:waypoint x="1190" y="325" />
-        <di:waypoint x="1190" y="460" />
-        <di:waypoint x="900" y="460" />
+        <di:waypoint x="1190" y="480" />
+        <di:waypoint x="480" y="480" />
+        <di:waypoint x="480" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1r5bmhz_di" bpmnElement="Flow_1r5bmhz">
         <di:waypoint x="348" y="300" />
@@ -275,7 +185,7 @@ execution.setVariable(, answer);</bpmn:script>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_05izzpn_di" bpmnElement="Flow_05izzpn">
         <di:waypoint x="530" y="300" />
-        <di:waypoint x="560" y="300" />
+        <di:waypoint x="585" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08ukwzo_di" bpmnElement="Flow_08ukwzo">
         <di:waypoint x="1048" y="200" />
@@ -289,26 +199,14 @@ execution.setVariable(, answer);</bpmn:script>
       <bpmndi:BPMNShape id="Event_16ak2r9_di" bpmnElement="Event_16ak2r9">
         <dc:Bounds x="312" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_13c3t71_di" bpmnElement="fnol-user-task">
+      <bpmndi:BPMNShape id="Activity_13c3t71_di" bpmnElement="fnol-service-user-task">
         <dc:Bounds x="948" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0ik30t7_di" bpmnElement="Gateway_0ik30t7" isMarkerVisible="true">
         <dc:Bounds x="1165" y="275" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1q8mhpx_di" bpmnElement="Event_1q8mhpx">
-        <dc:Bounds x="1832" y="282" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ouhzxg_di" bpmnElement="Activity_1e7o5n1">
-        <dc:Bounds x="430" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_19c43ck_di" bpmnElement="Activity_19c43ck">
-        <dc:Bounds x="800" y="420" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_09038ch_di" bpmnElement="Activity_0ry9i6h">
-        <dc:Bounds x="560" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1lg5oqz_di" bpmnElement="Gateway_0v6ki05">
-        <dc:Bounds x="675" y="275" width="50" height="50" />
+        <dc:Bounds x="1412" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0dyqwvj_di" bpmnElement="Activity_0dyqwvj">
         <dc:Bounds x="948" y="260" width="100" height="80" />
@@ -319,26 +217,23 @@ execution.setVariable(, answer);</bpmn:script>
       <bpmndi:BPMNShape id="Activity_1xlqjt4_di" bpmnElement="Activity_0url32d">
         <dc:Bounds x="948" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1es02k6_di" bpmnElement="Gateway_1es02k6" isMarkerVisible="true">
-        <dc:Bounds x="865" y="275" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_054smtc_di" bpmnElement="Activity_1xkt5nu">
-        <dc:Bounds x="730" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_05hata2_di" bpmnElement="Activity_0j103ok">
-        <dc:Bounds x="1680" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1l708e2_di" bpmnElement="Activity_0emn142">
-        <dc:Bounds x="1550" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0cxe797_di" bpmnElement="Activity_0gqu9vx">
-        <dc:Bounds x="1410" y="260" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_00vjo9c_di" bpmnElement="Activity_10cztjh">
         <dc:Bounds x="1260" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lg5oqz_di" bpmnElement="Gateway_0v6ki05">
+        <dc:Bounds x="585" y="275" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1es02k6_di" bpmnElement="Gateway_1es02k6" isMarkerVisible="true">
+        <dc:Bounds x="835" y="275" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_054smtc_di" bpmnElement="Activity_1xkt5nu">
+        <dc:Bounds x="670" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ouhzxg_di" bpmnElement="Activity_1e7o5n1">
+        <dc:Bounds x="430" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1jycotb_di" bpmnElement="Event_1jycotb">
-        <dc:Bounds x="1922" y="292" width="36" height="36" />
+        <dc:Bounds x="1562" y="282" width="36" height="36" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
