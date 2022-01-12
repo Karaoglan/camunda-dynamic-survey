@@ -1,0 +1,2 @@
+- in root run `mvn spring-boot:run`
+- for frontend run `yarn & yarn start`
