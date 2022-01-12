@@ -1,2 +1,2 @@
 - in root run `mvn spring-boot:run`
-- for frontend run `yarn & yarn start`
+- for frontend navigate into front_app and run `yarn & yarn start`
